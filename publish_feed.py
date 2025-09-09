@@ -24,41 +24,41 @@ def _get_bool_env_var(value: str) -> bool:
 
 # YOUR bluesky handle
 # Ex: user.bsky.social
-HANDLE: str = os.environ.get('HANDLE')
+HANDLE: str = os.environ.get('HANDLE') # type: ignore
 
 # YOUR bluesky password, or preferably an App Password (found in your client settings)
 # Ex: abcd-1234-efgh-5678
-PASSWORD: str = os.environ.get('PASSWORD')
+PASSWORD: str = os.environ.get('PASSWORD') # type: ignore
 
 # The hostname of the server where feed server will be hosted
 # Ex: feed.bsky.dev
-HOSTNAME: str = os.environ.get('HOSTNAME')
+HOSTNAME: str = os.environ.get('HOSTNAME') # type: ignore
 
 # A short name for the record that will show in urls
 # Lowercase with no spaces.
 # Ex: whats-hot
-RECORD_NAME: str = os.environ.get('RECORD_NAME')
+RECORD_NAME: str = os.environ.get('RECORD_NAME') # type: ignore
 
 # A display name for your feed
 # Ex: What's Hot
-DISPLAY_NAME: str = os.environ.get('DISPLAY_NAME')
+DISPLAY_NAME: str = os.environ.get('DISPLAY_NAME') # type: ignore
 
 # (Optional) A description of your feed
 # Ex: Top trending content from the whole network
-DESCRIPTION: str = os.environ.get('DESCRIPTION')
+DESCRIPTION: str = os.environ.get('DESCRIPTION') # type: ignore
 
 # (Optional) The path to an image to be used as your feed's avatar
 # Ex: ./path/to/avatar.jpeg
-AVATAR_PATH: str = os.environ.get('AVATAR_PATH')
+AVATAR_PATH: str = os.environ.get('AVATAR_PATH') # type: ignore
 
 # (Optional). Only use this if you want a service did different from did:web
-SERVICE_DID: str = os.environ.get('SERVICE_DID')
+SERVICE_DID: str = os.environ.get('SERVICE_DID') # type: ignore
 
 # (Optional). If your feed accepts interactions from clients
-ACCEPTS_INTERACTIONS: bool = _get_bool_env_var(os.environ.get('ACCEPTS_INTERACTIONS'))
+ACCEPTS_INTERACTIONS: bool = _get_bool_env_var(os.environ.get('ACCEPTS_INTERACTIONS')) # type: ignore
 
 # (Optional). If your feed is a video feed
-IS_VIDEO_FEED: bool = _get_bool_env_var(os.environ.get('IS_VIDEO_FEED'))
+IS_VIDEO_FEED: bool = _get_bool_env_var(os.environ.get('IS_VIDEO_FEED')) # type: ignore
 
 # -------------------------------------
 # NO NEED TO TOUCH ANYTHING BELOW HERE
@@ -80,7 +80,7 @@ def main():
             avatar_blob = client.upload_blob(avatar_data).blob
 
     response = client.com.atproto.repo.put_record(models.ComAtprotoRepoPutRecord.Data(
-        repo=client.me.did,
+        repo=client.me.did, # type: ignore
         collection=models.ids.AppBskyFeedGenerator,
         rkey=RECORD_NAME,
         record=models.AppBskyFeedGenerator.Record(

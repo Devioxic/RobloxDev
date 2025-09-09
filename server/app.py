@@ -35,7 +35,7 @@ def index():
 
 @app.route('/.well-known/did.json', methods=['GET'])
 def did_json():
-    if not config.SERVICE_DID.endswith(config.HOSTNAME):
+    if not config.SERVICE_DID.endswith(config.HOSTNAME): # type: ignore
         return '', 404
 
     return jsonify({

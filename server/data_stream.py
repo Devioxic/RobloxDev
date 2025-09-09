@@ -17,7 +17,7 @@ _INTERESTED_RECORDS = {
 def _get_ops_by_type(commit: models.ComAtprotoSyncSubscribeRepos.Commit) -> defaultdict:
     operation_by_type = defaultdict(lambda: {'created': [], 'deleted': []})
 
-    car = CAR.from_bytes(commit.blocks)
+    car = CAR.from_bytes(commit.blocks) # type: ignore
     for op in commit.ops:
         if op.action == 'update':
             # we are not interested in updates
@@ -40,7 +40,7 @@ def _get_ops_by_type(commit: models.ComAtprotoSyncSubscribeRepos.Commit) -> defa
                 continue
 
             for record_type, record_nsid in _INTERESTED_RECORDS.items():
-                if uri.collection == record_nsid and models.is_record_type(record, record_type):
+                if uri.collection == record_nsid and models.is_record_type(record, record_type): # type: ignore
                     operation_by_type[record_nsid]['created'].append({'record': record, **create_info})
                     break
 

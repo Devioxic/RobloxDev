@@ -27,7 +27,7 @@ if not FEED_URI:
                        'Set this URI to "FEED_URI" environment variable.')
 
 
-def _get_bool_env_var(value: str) -> bool:
+def _get_bool_env_var(value: str | None) -> bool:
     if value is None:
         return False
 

@@ -26,3 +26,4 @@ class SubscriptionState(BaseModel):
 if db.is_closed():
     db.connect()
     db.create_tables([Post, SubscriptionState])
+    

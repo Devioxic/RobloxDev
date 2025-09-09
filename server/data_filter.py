@@ -46,32 +46,18 @@ def operations_callback(ops: defaultdict) -> None:
     # After our feed alg we can save posts into our DB
     # Also, we should process deleted posts to remove them from our DB and keep it in sync
 
-    # for example, let's create our custom feed that will contain all posts that contains 'python' related text
-
     posts_to_create = []
     for created_post in ops[models.ids.AppBskyFeedPost]['created']:
-        author = created_post['author']
         record = created_post['record']
-
-        post_with_images = isinstance(record.embed, models.AppBskyEmbedImages.Main)
-        post_with_video = isinstance(record.embed, models.AppBskyEmbedVideo.Main)
         inlined_text = record.text.replace('\n', ' ')
-
-        # print all texts just as demo that data stream works
-        logger.debug(
-            f'NEW POST '
-            f'[CREATED_AT={record.created_at}]'
-            f'[AUTHOR={author}]'
-            f'[WITH_IMAGE={post_with_images}]'
-            f'[WITH_VIDEO={post_with_video}]'
-            f': {inlined_text}'
-        )
+        lowered_text = inlined_text.lower()
+        tags = [tag.lower() for tag in record.tags] if record.tags else []
 
         if should_ignore_post(created_post):
             continue
 
-        # only python-related posts
-        if 'python' in record.text.lower():
+        # only roblox dev related posts
+        if 'roblox' in lowered_text and 'dev' in lowered_text or 'robloxdev' in tags:
             reply_root = reply_parent = None
             if record.reply:
                 reply_root = record.reply.root.uri
