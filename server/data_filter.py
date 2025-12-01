@@ -57,7 +57,7 @@ def operations_callback(ops: defaultdict) -> None:
             continue
 
         # only roblox dev related posts
-        if 'roblox' in lowered_text and 'dev' in lowered_text or 'robloxdev' in tags:
+        if 'robloxdev' in lowered_text or 'robloxdev' in tags:
             reply_root = reply_parent = None
             if record.reply:
                 reply_root = record.reply.root.uri
